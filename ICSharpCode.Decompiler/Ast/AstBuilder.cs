@@ -728,6 +728,13 @@ namespace ICSharpCode.Decompiler.Ast {
 		{
 			if (depth++ > MAX_CONVERTTYPE_DEPTH)
 				return AstType.Null;
+
+			// Add support for stark extended type
+			if (type is ExtendedTypeSig) {
+				var extendedTypeSig = (ExtendedTypeSig)type;
+				return ConvertType(extendedTypeSig.Next, typeAttributes, ref typeIndex, options, depth, sb).MakeExtendedType(extendedTypeSig.Modifiers);
+			}
+
 			type = type.RemovePinnedAndModifiers();
 			if (type == null) {
 				return AstType.Null;

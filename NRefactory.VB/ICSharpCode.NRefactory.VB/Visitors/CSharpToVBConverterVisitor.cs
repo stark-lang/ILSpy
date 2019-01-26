@@ -8,9 +8,63 @@ using System.Text;
 using dnlib.DotNet;
 using dnSpy.Contracts.Decompiler;
 using dnSpy.Contracts.Text;
+using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.PatternMatching;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.VB.Ast;
+using Accessor = ICSharpCode.NRefactory.VB.Ast.Accessor;
+using ArrayCreateExpression = ICSharpCode.NRefactory.VB.Ast.ArrayCreateExpression;
+using ArrayInitializerExpression = ICSharpCode.NRefactory.VB.Ast.ArrayInitializerExpression;
+using ArraySpecifier = ICSharpCode.NRefactory.VB.Ast.ArraySpecifier;
+using AssignmentExpression = ICSharpCode.NRefactory.VB.Ast.AssignmentExpression;
+using AssignmentOperatorType = ICSharpCode.NRefactory.VB.Ast.AssignmentOperatorType;
+using AstType = ICSharpCode.NRefactory.VB.Ast.AstType;
+using BinaryOperatorExpression = ICSharpCode.NRefactory.VB.Ast.BinaryOperatorExpression;
+using BinaryOperatorType = ICSharpCode.NRefactory.VB.Ast.BinaryOperatorType;
+using BlockStatement = ICSharpCode.NRefactory.VB.Ast.BlockStatement;
+using CastExpression = ICSharpCode.NRefactory.VB.Ast.CastExpression;
+using ClassType = ICSharpCode.NRefactory.VB.Ast.ClassType;
+using CompilationUnit = ICSharpCode.NRefactory.VB.Ast.CompilationUnit;
+using ComposedType = ICSharpCode.NRefactory.VB.Ast.ComposedType;
+using ConditionalExpression = ICSharpCode.NRefactory.VB.Ast.ConditionalExpression;
+using ConstructorDeclaration = ICSharpCode.NRefactory.VB.Ast.ConstructorDeclaration;
+using ContinueStatement = ICSharpCode.NRefactory.VB.Ast.ContinueStatement;
+using DelegateDeclaration = ICSharpCode.NRefactory.VB.Ast.DelegateDeclaration;
+using EnumMemberDeclaration = ICSharpCode.NRefactory.VB.Ast.EnumMemberDeclaration;
+using EventDeclaration = ICSharpCode.NRefactory.VB.Ast.EventDeclaration;
+using Expression = ICSharpCode.NRefactory.VB.Ast.Expression;
+using ExpressionStatement = ICSharpCode.NRefactory.VB.Ast.ExpressionStatement;
+using FieldDeclaration = ICSharpCode.NRefactory.VB.Ast.FieldDeclaration;
+using ForStatement = ICSharpCode.NRefactory.VB.Ast.ForStatement;
+using Identifier = ICSharpCode.NRefactory.VB.Ast.Identifier;
+using IdentifierExpression = ICSharpCode.NRefactory.VB.Ast.IdentifierExpression;
+using IfElseStatement = ICSharpCode.NRefactory.VB.Ast.IfElseStatement;
+using InvocationExpression = ICSharpCode.NRefactory.VB.Ast.InvocationExpression;
+using LambdaExpression = ICSharpCode.NRefactory.VB.Ast.LambdaExpression;
+using MethodDeclaration = ICSharpCode.NRefactory.VB.Ast.MethodDeclaration;
+using Modifiers = ICSharpCode.NRefactory.VB.Ast.Modifiers;
+using NamedArgumentExpression = ICSharpCode.NRefactory.VB.Ast.NamedArgumentExpression;
+using NamespaceDeclaration = ICSharpCode.NRefactory.VB.Ast.NamespaceDeclaration;
+using OperatorDeclaration = ICSharpCode.NRefactory.VB.Ast.OperatorDeclaration;
+using ParameterDeclaration = ICSharpCode.NRefactory.VB.Ast.ParameterDeclaration;
+using ParenthesizedExpression = ICSharpCode.NRefactory.VB.Ast.ParenthesizedExpression;
+using PrimitiveExpression = ICSharpCode.NRefactory.VB.Ast.PrimitiveExpression;
+using PrimitiveType = ICSharpCode.NRefactory.VB.Ast.PrimitiveType;
+using PropertyDeclaration = ICSharpCode.NRefactory.VB.Ast.PropertyDeclaration;
+using QueryExpression = ICSharpCode.NRefactory.VB.Ast.QueryExpression;
+using QueryOrderingDirection = ICSharpCode.NRefactory.VB.Ast.QueryOrderingDirection;
+using ReturnStatement = ICSharpCode.NRefactory.VB.Ast.ReturnStatement;
+using SimpleType = ICSharpCode.NRefactory.VB.Ast.SimpleType;
+using Statement = ICSharpCode.NRefactory.VB.Ast.Statement;
+using ThrowStatement = ICSharpCode.NRefactory.VB.Ast.ThrowStatement;
+using TypeDeclaration = ICSharpCode.NRefactory.VB.Ast.TypeDeclaration;
+using TypeParameterDeclaration = ICSharpCode.NRefactory.VB.Ast.TypeParameterDeclaration;
+using TypeReferenceExpression = ICSharpCode.NRefactory.VB.Ast.TypeReferenceExpression;
+using UnaryOperatorExpression = ICSharpCode.NRefactory.VB.Ast.UnaryOperatorExpression;
+using UnaryOperatorType = ICSharpCode.NRefactory.VB.Ast.UnaryOperatorType;
+using UsingStatement = ICSharpCode.NRefactory.VB.Ast.UsingStatement;
+using VariableInitializer = ICSharpCode.NRefactory.VB.Ast.VariableInitializer;
+using WhileStatement = ICSharpCode.NRefactory.VB.Ast.WhileStatement;
 
 namespace ICSharpCode.NRefactory.VB.Visitors {
 	public interface IEnvironmentProvider
@@ -2448,7 +2502,12 @@ namespace ICSharpCode.NRefactory.VB.Visitors {
 			
 			return EndNode(primitiveType, new PrimitiveType(typeName));
 		}
-		
+
+		public AstNode VisitTypeAccessModifier(TypeAccessModifiers accessModifiers, object data) {
+			// We don't support VB
+			return null;
+		}
+
 		public AstNode VisitComment (CSharp.Comment comment, object data)
 		{
 			if (!comment.IsDocumentation)

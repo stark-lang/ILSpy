@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -444,6 +444,15 @@ namespace ICSharpCode.Decompiler.Disassembler {
 			if (depth++ > MAX_CONVERTTYPE_DEPTH)
 				return;
 			ILNameSyntax syntaxForElementTypes = syntax == ILNameSyntax.SignatureNoNamedTypeParameters ? syntax : ILNameSyntax.Signature;
+
+			// Add stark extended type sig
+			if (type is ExtendedTypeSig) {
+				var extendedTypeSig = (ExtendedTypeSig)type;
+				writer.Write(extendedTypeSig.Modifiers.ToString().ToLower().Replace("|", " "), BoxedTextColor.Keyword);
+				writer.Write(" ", BoxedTextColor.Text);
+				type = extendedTypeSig.Next;
+			}
+
 			if (type is PinnedSig) {
 				((PinnedSig)type).Next.WriteTo(writer, syntaxForElementTypes, depth);
 				writer.Write(" ", BoxedTextColor.Text);
