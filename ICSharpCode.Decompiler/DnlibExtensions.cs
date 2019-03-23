@@ -217,7 +217,7 @@ namespace ICSharpCode.Decompiler {
 		{
 			return provider.IsDefined(systemRuntimeCompilerServicesString, compilerGeneratedAttributeString);
 		}
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("System.Runtime.CompilerServices");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.Runtime.CompilerServices");
 		static readonly UTF8String compilerGeneratedAttributeString = new UTF8String("CompilerGeneratedAttribute");
 	
 		public static bool IsCompilerGeneratedOrIsInCompilerGeneratedClass(this IMemberDef member)
@@ -293,8 +293,8 @@ namespace ICSharpCode.Decompiler {
 		public static string GetDefaultMemberName(this TypeDef type, out CustomAttribute defaultMemberAttribute)
 		{
 			if (type != null && type.HasCustomAttributes)
-				foreach (CustomAttribute ca in type.CustomAttributes.FindAll("System.Reflection.DefaultMemberAttribute"))
-					if (ca.Constructor != null && ca.Constructor.FullName == @"System.Void System.Reflection.DefaultMemberAttribute::.ctor(System.String)" &&
+				foreach (CustomAttribute ca in type.CustomAttributes.FindAll("system.Reflection.DefaultMemberAttribute"))
+					if (ca.Constructor != null && ca.Constructor.FullName == @"system.Void System.Reflection.DefaultMemberAttribute::.ctor(System.String)" &&
 						ca.ConstructorArguments.Count == 1 &&
 						ca.ConstructorArguments[0].Value is UTF8String) {
 						defaultMemberAttribute = ca;
@@ -389,7 +389,7 @@ namespace ICSharpCode.Decompiler {
 
 			return false;
 		}
-		static readonly UTF8String systemString = new UTF8String("System");
+		static readonly UTF8String systemString = new UTF8String("system");
 		static readonly UTF8String booleanString = new UTF8String("Boolean");
 		static readonly UTF8String objectString = new UTF8String("Object");
 		static readonly UTF8String nullableString = new UTF8String("Nullable`1");

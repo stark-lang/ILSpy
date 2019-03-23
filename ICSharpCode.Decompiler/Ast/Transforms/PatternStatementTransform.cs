@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -1314,7 +1314,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			return null;
 		}
 
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("System.Runtime.CompilerServices");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
 		static readonly UTF8String compilerGeneratedAttributeString = new UTF8String("CompilerGeneratedAttribute");
 		static readonly UTF8String methodImplAttributeString = new UTF8String("MethodImplAttribute");
 		static readonly KeyValuePair<UTF8String, UTF8String>[] compilerGeneratedAttributeNames = new KeyValuePair<UTF8String, UTF8String>[] {
@@ -1468,7 +1468,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			var combineMethod = m.Get<AstNode>("delegateCombine").Single().Parent.Annotation<IMethod>();
 			if (combineMethod == null || combineMethod.Name != (isAddAccessor ? "Combine" : "Remove"))
 				return false;
-			return combineMethod.DeclaringType != null && combineMethod.DeclaringType.FullName == "System.Delegate";
+			return combineMethod.DeclaringType != null && combineMethod.DeclaringType.FullName == "system.Delegate";
 		}
 		
 		EventDeclaration TransformAutomaticEvents(CustomEventDeclaration ev)

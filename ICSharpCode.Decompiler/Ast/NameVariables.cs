@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -30,21 +30,21 @@ namespace ICSharpCode.Decompiler.Ast {
 	public class NameVariables
 	{
 		static readonly Dictionary<string, string> typeNameToVariableNameDict = new Dictionary<string, string> {
-			{ "System.Boolean", "flag" },
-			{ "System.Byte", "b" },
-			{ "System.SByte", "b" },
-			{ "System.Int16", "num" },
-			{ "System.Int32", "num" },
-			{ "System.Int64", "num" },
-			{ "System.UInt16", "num" },
-			{ "System.UInt32", "num" },
-			{ "System.UInt64", "num" },
-			{ "System.Single", "num" },
-			{ "System.Double", "num" },
-			{ "System.Decimal", "num" },
-			{ "System.String", "text" },
-			{ "System.Object", "obj" },
-			{ "System.Char", "c" }
+			{ "system.Bool", "flag" },
+			{ "system.Int8", "b" },
+			{ "system.UInt8", "b" },
+			{ "system.Int16", "num" },
+			{ "system.Int32", "num" },
+			{ "system.Int64", "num" },
+			{ "system.UInt16", "num" },
+			{ "system.UInt32", "num" },
+			{ "system.UInt64", "num" },
+			{ "system.Float32", "num" },
+			{ "system.Float64", "num" },
+			{ "system.Decimal", "num" },
+			{ "system.String", "text" },
+			{ "system.Object", "obj" },
+			{ "system.Rune", "c" }
 		};
 		
 		public NameVariables(StringBuilder sb) {
@@ -231,7 +231,7 @@ namespace ICSharpCode.Decompiler.Ast {
 				return null;
 			if (!td.IsNested)
 				return null;
-			if (!td.CustomAttributes.IsDefined("System.Runtime.CompilerServices.CompilerGeneratedAttribute"))
+			if (!td.CustomAttributes.IsDefined("system.runtime.compiler.CompilerGeneratedAttribute"))
 				return null;
 			var typeName = td.Name.String;
 
@@ -401,7 +401,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			return null;
 		}
 
-		static readonly UTF8String systemString = new UTF8String("System");
+		static readonly UTF8String systemString = new UTF8String("system");
 		static readonly UTF8String nullableString = new UTF8String("Nullable`1");
 		string GetNameByType(TypeSig type)
 		{

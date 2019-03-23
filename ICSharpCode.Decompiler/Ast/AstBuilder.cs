@@ -351,7 +351,7 @@ namespace ICSharpCode.Decompiler.Ast {
 							new NRefactory.CSharp.Attribute {
 								Type = new SimpleType("AssemblyVersion")
 									.WithAnnotation(moduleDefinition.CorLibTypes.GetTypeRef(
-										"System.Reflection", "AssemblyVersionAttribute")),
+										"system.reflection", "AssemblyVersionAttribute")),
 								Arguments = {
 									new PrimitiveExpression(moduleDefinition.Assembly.Version.ToString())
 								}
@@ -396,7 +396,7 @@ namespace ICSharpCode.Decompiler.Ast {
 								new NRefactory.CSharp.Attribute {
 									Type = new SimpleType("TypeForwardedTo")
 										.WithAnnotation(module.CorLibTypes.GetTypeRef(
-											"System.Runtime.CompilerServices", "TypeForwardedToAttribute")),
+											"system.runtime.compiler", "TypeForwardedToAttribute")),
 									Arguments = { forwardedType }
 								}
 							}
@@ -621,9 +621,9 @@ namespace ICSharpCode.Decompiler.Ast {
 			context.CurrentType = oldCurrentType;
 			return result;
 		}
-		static readonly UTF8String systemReflectionString = new UTF8String("System.Reflection");
+		static readonly UTF8String systemReflectionString = new UTF8String("system.reflection");
 		static readonly UTF8String defaultMemberAttributeString = new UTF8String("DefaultMemberAttribute");
-		static readonly UTF8String systemString = new UTF8String("System");
+		static readonly UTF8String systemString = new UTF8String("system");
 		static readonly UTF8String multicastDelegateString = new UTF8String("MulticastDelegate");
 
 		bool IsNormalDelegate(TypeDef td)
@@ -807,14 +807,14 @@ namespace ICSharpCode.Decompiler.Ast {
 				if (name == null)
 					throw new InvalidOperationException("type.Name returned null. Type: " + type.ToString());
 				
-				if (name == "Object" && ns == "System" && HasDynamicAttribute(typeAttributes, typeIndex)) {
+				if (name == "Object" && ns == "system" && HasDynamicAttribute(typeAttributes, typeIndex)) {
 					return new PrimitiveType("dynamic");
 				} else {
-					if (ns == "System") {
+					if (ns == "system") {
 						if ((options & ConvertTypeOptions.DoNotUsePrimitiveTypeNames)
 							!= ConvertTypeOptions.DoNotUsePrimitiveTypeNames) {
 							switch (name) {
-								case "SByte":
+								case "Int8":
 									return new PrimitiveType("sbyte").WithAnnotation(type);
 								case "Int16":
 									return new PrimitiveType("short").WithAnnotation(type);
@@ -822,7 +822,7 @@ namespace ICSharpCode.Decompiler.Ast {
 									return new PrimitiveType("int").WithAnnotation(type);
 								case "Int64":
 									return new PrimitiveType("long").WithAnnotation(type);
-								case "Byte":
+								case "UInt8":
 									return new PrimitiveType("byte").WithAnnotation(type);
 								case "UInt16":
 									return new PrimitiveType("ushort").WithAnnotation(type);
@@ -832,15 +832,15 @@ namespace ICSharpCode.Decompiler.Ast {
 									return new PrimitiveType("ulong").WithAnnotation(type);
 								case "String":
 									return new PrimitiveType("string").WithAnnotation(type);
-								case "Single":
+								case "Float32":
 									return new PrimitiveType("float").WithAnnotation(type);
-								case "Double":
+								case "Float64":
 									return new PrimitiveType("double").WithAnnotation(type);
 								case "Decimal":
 									return new PrimitiveType("decimal").WithAnnotation(type);
-								case "Char":
-									return new PrimitiveType("char").WithAnnotation(type);
-								case "Boolean":
+								case "Rune":
+									return new PrimitiveType("rune").WithAnnotation(type);
+								case "Bool":
 									return new PrimitiveType("bool").WithAnnotation(type);
 								case "Void":
 									return new PrimitiveType("void").WithAnnotation(type);
@@ -917,7 +917,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			}
 		}
 		
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("System.Runtime.CompilerServices");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
 		static readonly UTF8String dynamicAttributeString = new UTF8String("DynamicAttribute");
 		static bool HasDynamicAttribute(IHasCustomAttribute attributeProvider, int typeIndex)
 		{
@@ -1706,8 +1706,8 @@ namespace ICSharpCode.Decompiler.Ast {
 				var type = ca.AttributeType;
 				while (type != null) {
 					var fullName = type.FullName;
-					if (fullName == "System.Runtime.CompilerServices.CustomConstantAttribute" ||
-						fullName == "System.Runtime.CompilerServices.DecimalConstantAttribute") {
+					if (fullName == "system.runtime.compiler.CustomConstantAttribute" ||
+						fullName == "system.runtime.compiler.DecimalConstantAttribute") {
 						constantAttribute = ca;
 						return true;
 					}
@@ -1729,7 +1729,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			}
 
 			if (constantAttribute != null) {
-				if (constantAttribute.TypeFullName == "System.Runtime.CompilerServices.DecimalConstantAttribute") {
+				if (constantAttribute.TypeFullName == "system.runtime.compiler.DecimalConstantAttribute") {
 					if (TryGetDecimalConstantAttributeValue(constantAttribute, out var decimalValue)) {
 						constant = decimalValue;
 						return true;
@@ -2141,7 +2141,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			if (implAttributes != 0) {
 				Ast.Attribute methodImpl = CreateNonCustomAttribute_SystemRuntime(typeof(MethodImplAttribute));
 				TypeRef methodImplOptions = methodDef.Module.CorLibTypes.GetTypeRef(
-					"System.Runtime.CompilerServices", "MethodImplOptions");
+					"system.runtime.compiler", "MethodImplOptions");
 				methodImpl.Arguments.Add(MakePrimitive((long)implAttributes, methodImplOptions, stringBuilder));
 				attributedNode.Attributes.Add(new AttributeSection(methodImpl));
 			}
@@ -2195,8 +2195,8 @@ namespace ICSharpCode.Decompiler.Ast {
 			return module.GetAssemblyRefs().FirstOrDefault(a => a.Name == systemRuntimeSerializationFormattersName && contractsPublicKeyToken.Equals(a.PublicKeyOrToken.Token)) ??
 					module.CorLibTypes.AssemblyRef;
 		}
-		static readonly UTF8String systemRuntimeInteropServicesName = new UTF8String("System.Runtime.InteropServices");
-		static readonly UTF8String systemRuntimeSerializationFormattersName = new UTF8String("System.Runtime.Serialization.Formatters");
+		static readonly UTF8String systemRuntimeInteropServicesName = new UTF8String("system.runtime.interopServices");
+		static readonly UTF8String systemRuntimeSerializationFormattersName = new UTF8String("system.runtime.serialization.formatters");
 		static readonly PublicKeyToken contractsPublicKeyToken = new PublicKeyToken("b03f5f7f11d50a3a");
 
 		#region MarshalAsAttribute (ConvertMarshalInfo)
@@ -2300,7 +2300,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			IsYieldReturn = 2,
 		}
 		static readonly UTF8String extensionAttributeString = new UTF8String("ExtensionAttribute");
-		static readonly UTF8String systemDiagnosticsString = new UTF8String("System.Diagnostics");
+		static readonly UTF8String systemDiagnosticsString = new UTF8String("system.diagnostics");
 		static readonly UTF8String debuggerStepThroughAttributeString = new UTF8String("DebuggerStepThroughAttribute");
 		static readonly UTF8String debuggerHiddenAttributeString = new UTF8String("DebuggerHiddenAttribute");
 		static readonly UTF8String asyncStateMachineAttributeString = new UTF8String("AsyncStateMachineAttribute");
@@ -2459,7 +2459,7 @@ namespace ICSharpCode.Decompiler.Ast {
 					}
 					
 					var module = secAttribute.AttributeType.Module;
-					var securityActionType = module.CorLibTypes.GetTypeRef("System.Security.Permissions", "SecurityAction");
+					var securityActionType = module.CorLibTypes.GetTypeRef("system.security.permissions", "SecurityAction");
 					attribute.Arguments.Add(MakePrimitive((int)secDecl.Action, securityActionType, sb));
 					
 					if (secAttribute.HasNamedArguments) {

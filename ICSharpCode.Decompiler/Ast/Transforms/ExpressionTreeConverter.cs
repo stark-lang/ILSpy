@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -38,7 +38,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		{
 			if (expr != null && expr.Arguments.Count == 2) {
 				IMethod mr = expr.Annotation<IMethod>();
-				return mr != null && mr.Name == "Lambda" && mr.DeclaringType != null && mr.DeclaringType.FullName == "System.Linq.Expressions.Expression";
+				return mr != null && mr.Name == "Lambda" && mr.DeclaringType != null && mr.DeclaringType.FullName == "system.linq.expressions.Expression";
 			}
 			return false;
 		}
@@ -69,7 +69,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			InvocationExpression invocation = expr as InvocationExpression;
 			if (invocation != null) {
 				IMethod mr = invocation.Annotation<IMethod>();
-				if (mr != null && mr.DeclaringType != null && mr.DeclaringType.FullName == "System.Linq.Expressions.Expression") {
+				if (mr != null && mr.DeclaringType != null && mr.DeclaringType.FullName == "system.linq.expressions.Expression") {
 					switch (mr.Name) {
 						case "Add":
 							return ConvertBinaryOperator(invocation, BinaryOperatorType.Add, false);
@@ -864,7 +864,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 				return null;
 
 			const string propName = "Length";
-			var type = module.CorLibTypes.GetTypeRef("System", "Array");
+			var type = module.CorLibTypes.GetTypeRef("system", "Array");
 			var retType = module.CorLibTypes.Int32;
 			var mr = new MemberRefUser(module, "get_" + propName, MethodSig.CreateInstance(retType), type);
 			Create_SystemArray_get_Length_result = mr;

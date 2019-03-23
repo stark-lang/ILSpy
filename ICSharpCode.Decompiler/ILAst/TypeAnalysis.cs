@@ -533,7 +533,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					if (forceInferChildren) {
 						InferTypeForExpression(expr.Arguments[0], typeSystem.TypedReference);
 					}
-					return typeSystem.GetTypeRef("System", "RuntimeTypeHandle").ToTypeSig();
+					return typeSystem.GetTypeRef("system", "RuntimeTypeHandle").ToTypeSig();
 				case ILCode.Refanyval:
 					if (forceInferChildren) {
 						InferTypeForExpression(expr.Arguments[0], typeSystem.TypedReference);
@@ -662,16 +662,16 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ILCode.Ldc_R8:
 					return typeSystem.Double;
 				case ILCode.Ldc_Decimal:
-					return typeSystem.GetTypeRef("System", "Decimal").ToTypeSig();
+					return typeSystem.GetTypeRef("system", "Decimal").ToTypeSig();
 				case ILCode.Ldtoken:
 					if (expr.Operand is ITypeDefOrRef)
-						return typeSystem.GetTypeRef("System", "RuntimeTypeHandle").ToTypeSig();
+						return typeSystem.GetTypeRef("system", "RuntimeTypeHandle").ToTypeSig();
 					else if ((expr.Operand as IField)?.FieldSig != null)
-						return typeSystem.GetTypeRef("System", "RuntimeFieldHandle").ToTypeSig();
+						return typeSystem.GetTypeRef("system", "RuntimeFieldHandle").ToTypeSig();
 					else
-						return typeSystem.GetTypeRef("System", "RuntimeMethodHandle").ToTypeSig();
+						return typeSystem.GetTypeRef("system", "RuntimeMethodHandle").ToTypeSig();
 				case ILCode.Arglist:
-					return typeSystem.GetTypeRef("System", "RuntimeArgumentHandle").ToTypeSig();
+					return typeSystem.GetTypeRef("system", "RuntimeArgumentHandle").ToTypeSig();
 					#endregion
 					#region Array instructions
 				case ILCode.Newarr:
@@ -865,7 +865,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ILCode.Ret:
 					if (forceInferChildren && expr.Arguments.Count == 1) {
 						TypeSig returnType = context.CurrentMethod.ReturnType;
-						if (context.CurrentMethodIsAsync && returnType != null && returnType.Namespace == "System.Threading.Tasks") {
+						if (context.CurrentMethodIsAsync && returnType != null && returnType.Namespace == "system.Threading.Tasks") {
 							if (returnType.TypeName == "Task") {
 								returnType = typeSystem.Void;
 							} else if (returnType.TypeName == "Task`1" && returnType.IsGenericInstanceType) {
@@ -888,7 +888,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ILCode.Await:
 					{
 						TypeSig taskType = InferTypeForExpression(expr.Arguments[0], null);
-						if (taskType != null && taskType.TypeName == "Task`1" && taskType.IsGenericInstanceType && taskType.Namespace == "System.Threading.Tasks") {
+						if (taskType != null && taskType.TypeName == "Task`1" && taskType.IsGenericInstanceType && taskType.Namespace == "system.Threading.Tasks") {
 							return ((GenericInstSig)taskType).GenericArguments[0];
 						}
 						return null;
@@ -1002,7 +1002,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 		TypeSig CreateNullableType(TypeSig type)
 		{
 			if (type == null) return null;
-			var t = new GenericInstSig((ClassOrValueTypeSig)typeSystem.GetTypeRef("System", "Nullable`1").ToTypeSig());
+			var t = new GenericInstSig((ClassOrValueTypeSig)typeSystem.GetTypeRef("system", "Nullable`1").ToTypeSig());
 			t.GenericArguments.Add(type);
 			return t;
 		}
@@ -1238,7 +1238,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 		{
 			TypeDefOrRefSig sig = type as TypeDefOrRefSig;
 			if (sig != null)
-				return sig.TypeDefOrRef != null && sig.TypeDefOrRef.Name == "Nullable`1" && sig.TypeDefOrRef.Namespace == "System";
+				return sig.TypeDefOrRef != null && sig.TypeDefOrRef.Name == "Nullable`1" && sig.TypeDefOrRef.Namespace == "system";
 			else
 				return type is GenericInstSig && IsNullableType(((GenericInstSig)type).GenericType);
 		}

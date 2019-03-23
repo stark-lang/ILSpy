@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -62,8 +62,8 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			// First determine all the namespaces that need to be imported:
 			compilationUnit.AcceptVisitor(new FindRequiredImports(this), null);
 
-			importedNamespaces.Add(new NamespaceRef(context.CurrentModule.CorLibTypes.AssemblyRef, "System")); // always import System, even when not necessary
-			importedOrDeclaredNamespaces.Add("System");
+			importedNamespaces.Add(new NamespaceRef(context.CurrentModule.CorLibTypes.AssemblyRef, "system")); // always import System, even when not necessary
+			importedOrDeclaredNamespaces.Add("system");
 			if (context.CalculateILSpans) {
 				Debug.Assert(context.UsingNamespaces.Count == 0);
 				foreach (var nsRef in importedNamespaces)
@@ -159,8 +159,8 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		sealed class ReverseSortSystemUsingStatementsFirstComparer : IComparer<NamespaceRef> {
 			public static readonly ReverseSortSystemUsingStatementsFirstComparer Instance = new ReverseSortSystemUsingStatementsFirstComparer();
 			public int Compare(NamespaceRef x, NamespaceRef y) {
-				bool sx = x.Namespace == "System" || x.Namespace.StartsWith("System.");
-				bool sy = y.Namespace == "System" || y.Namespace.StartsWith("System.");
+				bool sx = x.Namespace == "system" || x.Namespace.StartsWith("system.");
+				bool sy = y.Namespace == "system" || y.Namespace.StartsWith("system.");
 				if (sx && sy)
 					return StringComparer.OrdinalIgnoreCase.Compare(y.Namespace, x.Namespace);
 				if (sx && !sy)

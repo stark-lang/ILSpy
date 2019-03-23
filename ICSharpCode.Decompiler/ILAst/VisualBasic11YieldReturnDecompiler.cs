@@ -138,7 +138,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 			var cb = tryCatchBlock.CatchBlocks[0];
 			if (cb.FilterBlock != null)
 				throw new SymbolicAnalysisFailedException();
-			if (cb.ExceptionType?.FullName != "System.Exception")
+			if (cb.ExceptionType?.FullName != "system.Exception")
 				throw new SymbolicAnalysisFailedException();
 			// Verify catch body:
 			//	stfld($State, ldloc(this), ldc.i4(4))

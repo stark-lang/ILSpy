@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (C) 2014-2019 de4dot@gmail.com
 
     This file is part of dnSpy
@@ -110,7 +110,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 			if (!okName)
 				return false;
 
-			return method.CustomAttributes.IsDefined("System.Runtime.CompilerServices.CompilerGeneratedAttribute");
+			return method.CustomAttributes.IsDefined("system.runtime.compiler.CompilerGeneratedAttribute");
 		}
 	}
 }

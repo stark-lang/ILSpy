@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2012 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -35,7 +35,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				var iface = ii.Interface;
 				if (iface == null)
 					continue;
-				if (iface.Name == nameIAsyncStateMachine && iface.Namespace == "System.Runtime.CompilerServices")
+				if (iface.Name == nameIAsyncStateMachine && iface.Namespace == "system.runtime.compiler")
 					return true;
 			}
 			return false;
@@ -78,7 +78,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 
 		static readonly UTF8String nameCreate = new UTF8String("Create");
 		static readonly UTF8String nameStart = new UTF8String("Start");
-		static readonly UTF8String nameSystemRuntimeCompilerServices = new UTF8String("System.Runtime.CompilerServices");
+		static readonly UTF8String nameSystemRuntimeCompilerServices = new UTF8String("system.runtime.compiler");
 		static readonly UTF8String nameAsyncTaskMethodBuilder1 = new UTF8String("AsyncTaskMethodBuilder`1");
 		static readonly UTF8String nameAsyncTaskMethodBuilder = new UTF8String("AsyncTaskMethodBuilder");
 		static readonly UTF8String nameAsyncVoidMethodBuilder = new UTF8String("AsyncVoidMethodBuilder");
@@ -170,10 +170,10 @@ namespace ICSharpCode.Decompiler.ILAst {
 		protected bool MatchStartCall(ILNode expr, out ILVariable stateMachineVar, out ILVariable builderVar) =>
 			MatchStartCallCore(expr, out stateMachineVar, out builderVar, useLdflda: false);
 
-		static readonly UTF8String stringSystem_Threading_Tasks = new UTF8String("System.Threading.Tasks");
+		static readonly UTF8String stringSystem_Threading_Tasks = new UTF8String("system.threading.tasks");
 		static readonly UTF8String stringTask = new UTF8String("Task");
 		static readonly UTF8String stringTask_1 = new UTF8String("Task`1");
-		static readonly UTF8String stringSystem = new UTF8String("System");
+		static readonly UTF8String stringSystem = new UTF8String("system");
 		static readonly UTF8String stringVoid = new UTF8String("Void");
 		static bool TryGetAsyncMethodType(ITypeDefOrRef tdr, ITypeDefOrRef builderType, out AsyncMethodType asyncMethodType) {
 			var td = tdr.ResolveTypeDef();
@@ -232,11 +232,11 @@ namespace ICSharpCode.Decompiler.ILAst {
 				return false;
 
 			foreach (var ca in td.CustomAttributes) {
-				if (ca.TypeFullName != "System.Runtime.CompilerServices.AsyncMethodBuilderAttribute")
+				if (ca.TypeFullName != "system.runtime.compiler.AsyncMethodBuilderAttribute")
 					continue;
 				if (ca.ConstructorArguments.Count != 1)
 					continue;
-				if ((ca.ConstructorArguments[0].Type as ClassSig)?.TypeDefOrRef.FullName != "System.Type")
+				if ((ca.ConstructorArguments[0].Type as ClassSig)?.TypeDefOrRef.FullName != "system.Type")
 					continue;
 
 				return true;
@@ -349,7 +349,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 						// VB 11 & 12 calls RuntimeHelpers.GetObjectValue(o)
 						if (m.Name != nameGetObjectValue)
 							return false;
-						if (m.DeclaringType.FullName != "System.Runtime.CompilerServices.RuntimeHelpers")
+						if (m.DeclaringType.FullName != "system.runtime.compiler.RuntimeHelpers")
 							return false;
 					}
 					else

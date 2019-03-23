@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -34,7 +34,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		{
 		}
 
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("System.Runtime.CompilerServices");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
 		static readonly UTF8String decimalConstantAttributeString = new UTF8String("DecimalConstantAttribute");
 		public override object VisitFieldDeclaration(FieldDeclaration fieldDeclaration, object data)
 		{

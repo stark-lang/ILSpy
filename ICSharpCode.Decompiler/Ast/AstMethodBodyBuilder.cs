@@ -421,7 +421,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			Create_SystemArray_get_Length_result_initd = true;
 
 			const string propName = "Length";
-			var type = corLib.GetTypeRef("System", "Array");
+			var type = corLib.GetTypeRef("system", "Array");
 			var retType = corLib.Int32;
 			var mr = new MemberRefUser(methodDef.Module, "get_" + propName, MethodSig.CreateInstance(retType), type);
 			Create_SystemArray_get_Length_result = mr;
@@ -445,8 +445,8 @@ namespace ICSharpCode.Decompiler.Ast {
 			Create_SystemType_get_TypeHandle_initd = true;
 
 			const string propName = "TypeHandle";
-			var type = corLib.GetTypeRef("System", "Type");
-			var retType = new ValueTypeSig(corLib.GetTypeRef("System", "RuntimeTypeHandle"));
+			var type = corLib.GetTypeRef("system", "Type");
+			var retType = new ValueTypeSig(corLib.GetTypeRef("system", "RuntimeTypeHandle"));
 			var mr = new MemberRefUser(methodDef.Module, "get_" + propName, MethodSig.CreateInstance(retType), type);
 			Create_SystemType_get_TypeHandle_result = mr;
 			var md = mr.ResolveMethod();
@@ -1177,13 +1177,13 @@ namespace ICSharpCode.Decompiler.Ast {
 				else if (!DnlibExtensions.IsValueType(typeDef))
 					return new NullReferenceExpression();
 				switch (typeDef.FullName) {
-					case "System.Nullable`1":
+					case "system.Nullable`1":
 						return new NullReferenceExpression();
-					case "System.Single":
+					case "system.Float32":
 						return new PrimitiveExpression(0f);
-					case "System.Double":
+					case "system.Float64":
 						return new PrimitiveExpression(0.0);
-					case "System.Decimal":
+					case "system.Decimal":
 						return new PrimitiveExpression(0m);
 				}
 			}
@@ -1323,7 +1323,7 @@ namespace ICSharpCode.Decompiler.Ast {
 						}
 					}
 				}
-			} else if (methodDef != null && methodDef.Name == nameInvoke && methodDef.DeclaringType.BaseType != null && methodDef.DeclaringType.BaseType.FullName == "System.MulticastDelegate") {
+			} else if (methodDef != null && methodDef.Name == nameInvoke && methodDef.DeclaringType.BaseType != null && methodDef.DeclaringType.BaseType.FullName == "system.MulticastDelegate") {
 				AdjustArgumentsForMethodCall(method, methodArgs);
 				return target.Invoke(methodArgs).WithAnnotation(method);
 			}
@@ -1379,7 +1379,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			}
 		}
 
-		static readonly UTF8String systemReflectionString = new UTF8String("System.Reflection");
+		static readonly UTF8String systemReflectionString = new UTF8String("system.reflection");
 		static readonly UTF8String defaultMemberAttributeString = new UTF8String("DefaultMemberAttribute");
 		internal static PropertyDef GetIndexer(MethodDef method)
 		{

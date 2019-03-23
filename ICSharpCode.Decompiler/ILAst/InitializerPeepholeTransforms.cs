@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -148,7 +148,7 @@ namespace ICSharpCode.Decompiler.ILAst
 			if (body.ElementAtOrDefault(pos).Match(ILCode.Call, out methodRef, out methodArg1, out methodArg2) &&
 				methodRef.Name == nameInitializeArray &&
 				methodRef.DeclaringType != null &&
-			    methodRef.DeclaringType.FullName == "System.Runtime.CompilerServices.RuntimeHelpers" &&
+			    methodRef.DeclaringType.FullName == "system.runtime.compiler.RuntimeHelpers" &&
 			    methodArg1.Match(ILCode.Ldloc, out v2) &&
 			    array == v2 &&
 			    methodArg2.Match(ILCode.Ldtoken, out fieldRef))
@@ -407,7 +407,7 @@ namespace ICSharpCode.Decompiler.ILAst
 			return false;
 		}
 		static readonly UTF8String nameIEnumerable = new UTF8String("IEnumerable");
-		static readonly UTF8String nameSystemCollections = new UTF8String("System.Collections");
+		static readonly UTF8String nameSystemCollections = new UTF8String("system.collections");
 
 		/// <summary>
 		/// Gets whether 'expr' represents a setter in an object initializer.

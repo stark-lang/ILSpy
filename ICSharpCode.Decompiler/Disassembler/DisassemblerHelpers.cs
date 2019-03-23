@@ -772,75 +772,75 @@ namespace ICSharpCode.Decompiler.Disassembler {
 			var corLibTypes = module == null ? null : module.CorLibTypes;
 			typeSig = null;
 			switch (fullName) {
-				case "System.SByte":
+				case "system.Int8":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.SByte;
 					return "int8";
-				case "System.Int16":
+				case "system.Int16":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Int16;
 					return "int16";
-				case "System.Int32":
+				case "system.Int32":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Int32;
 					return "int32";
-				case "System.Int64":
+				case "system.Int64":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Int64;
 					return "int64";
-				case "System.Byte":
+				case "system.UInt8":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Byte;
 					return "uint8";
-				case "System.UInt16":
+				case "system.UInt16":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.UInt16;
 					return "uint16";
-				case "System.UInt32":
+				case "system.UInt32":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.UInt32;
 					return "uint32";
-				case "System.UInt64":
+				case "system.UInt64":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.UInt64;
 					return "uint64";
-				case "System.Single":
+				case "system.Float32":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Single;
 					return "float32";
-				case "System.Double":
+				case "system.Float64":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Double;
 					return "float64";
-				case "System.Void":
+				case "system.Void":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Void;
 					return "void";
-				case "System.Boolean":
+				case "system.Bool":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Boolean;
 					return "bool";
-				case "System.String":
+				case "system.String":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.String;
 					return "string";
-				case "System.Char":
+				case "system.Rune":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Char;
 					return "char";
-				case "System.Object":
+				case "system.Object":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Object;
 					return "object";
-				case "System.IntPtr":
+				case "system.Int":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.IntPtr;
 					return "native int";
-				case "System.UIntPtr":
+				case "system.UInt":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.UIntPtr;
 					return "native unsigned int";
-				case "System.TypedReference":
+				case "system.TypedReference":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.TypedReference;
 					return "typedref";
