@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -304,15 +304,8 @@ namespace ICSharpCode.Decompiler {
 			return null;
 		}
 
-		public static bool IsIndexer(this PropertyDef property)
+		static bool IsIndexer(this PropertyDef property)
 		{
-			CustomAttribute attr;
-			return property.IsIndexer(out attr);
-		}
-
-		static bool IsIndexer(this PropertyDef property, out CustomAttribute defaultMemberAttribute)
-		{
-			defaultMemberAttribute = null;
 			if (property != null && property.PropertySig.GetParamCount() > 0) {
 				var accessor = property.GetMethod ?? property.SetMethod;
 				PropertyDef basePropDef = property;
@@ -329,10 +322,8 @@ namespace ICSharpCode.Decompiler {
 					} else
 						return false;
 				}
-				CustomAttribute attr;
-				var defaultMemberName = basePropDef.DeclaringType.GetDefaultMemberName(out attr);
+				var defaultMemberName = "Item";
 				if (defaultMemberName == basePropDef.Name) {
-					defaultMemberAttribute = attr;
 					return true;
 				}
 			}

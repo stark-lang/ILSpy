@@ -601,20 +601,6 @@ namespace ICSharpCode.Decompiler.Ast {
 					astType.AddChild(ConvertType(i.Interface, stringBuilder), Roles.BaseType);
 				
 				AddTypeMembers(astType, typeDef);
-
-				if (astType.Members.OfType<IndexerDeclaration>().Any(idx => idx.PrivateImplementationType.IsNull)) {
-					// Remove the [DefaultMember] attribute if the class contains indexers
-					foreach (AttributeSection section in astType.Attributes) {
-						foreach (Ast.Attribute attr in section.Attributes) {
-							ITypeDefOrRef tr = attr.Type.Annotation<ITypeDefOrRef>();
-							if (tr != null && tr.Compare(systemReflectionString, defaultMemberAttributeString)) {
-								attr.Remove();
-							}
-						}
-						if (section.Attributes.Count == 0)
-							section.Remove();
-					}
-				}
 			}
 
 			AddComment(astType, typeDef);
@@ -622,7 +608,6 @@ namespace ICSharpCode.Decompiler.Ast {
 			return result;
 		}
 		static readonly UTF8String systemReflectionString = new UTF8String("system.reflection");
-		static readonly UTF8String defaultMemberAttributeString = new UTF8String("DefaultMemberAttribute");
 		static readonly UTF8String systemString = new UTF8String("system");
 		static readonly UTF8String multicastDelegateString = new UTF8String("MulticastDelegate");
 

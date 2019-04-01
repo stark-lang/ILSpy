@@ -1380,33 +1380,13 @@ namespace ICSharpCode.Decompiler.Ast {
 		}
 
 		static readonly UTF8String systemReflectionString = new UTF8String("system.reflection");
-		static readonly UTF8String defaultMemberAttributeString = new UTF8String("DefaultMemberAttribute");
 		internal static PropertyDef GetIndexer(MethodDef method)
 		{
 			if (method == null)
 				return null;
 			TypeDef typeDef = method.DeclaringType;
-			UTF8String indexerName = null;
-			foreach (var ca in typeDef.CustomAttributes) {
-				if (ca.ConstructorArguments.Count != 1)
-					continue;
-				var ctor = ca.Constructor;
-				if (ctor == null)
-					continue;
-				var sig = ctor.MethodSig;
-				if (sig == null || sig.Params.Count != 1 || sig.Params[0].GetElementType() != ElementType.String)
-					continue;
-				var type = ctor.DeclaringType;
-				if (!type.Compare(systemReflectionString, defaultMemberAttributeString))
-					continue;
-				indexerName = ca.ConstructorArguments[0].Value as UTF8String;
-				if (!UTF8String.IsNull(indexerName))
-					break;
-			}
-			if (UTF8String.IsNull(indexerName))
-				return null;
 			foreach (PropertyDef prop in typeDef.Properties) {
-				if (prop.Name == indexerName) {
+				if (prop.Name == "Item") {
 					if (prop.GetMethod == method || prop.SetMethod == method)
 						return prop;
 				}
