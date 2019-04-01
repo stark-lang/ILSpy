@@ -187,7 +187,7 @@ namespace ICSharpCode.Decompiler.Disassembler {
 			{ MethodAttributes.Abstract, "abstract" },
 			{ MethodAttributes.Virtual, "virtual" },
 			{ MethodAttributes.Static, "static" },
-			{ MethodAttributes.HasSecurity, null }, // ?? also invisible in ILDasm
+			{ MethodAttributes.IsReadOnly, "readonly" },
 		};
 		
 		EnumNameCollection<MethodAttributes> methodVisibility = new EnumNameCollection<MethodAttributes>() {
