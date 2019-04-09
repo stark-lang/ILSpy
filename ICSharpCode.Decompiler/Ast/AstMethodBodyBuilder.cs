@@ -1019,6 +1019,7 @@ namespace ICSharpCode.Decompiler.Ast {
 					}
 					case ILCode.Rethrow: return new Ast.ThrowStatement();
 					case ILCode.Sizeof:  return new Ast.SizeOfExpression { Type = operandAsTypeRef };
+					case ILCode.Ldtarg: return new Ast.LoadTypeArgumentExpression { Type = operandAsTypeRef };
 					case ILCode.Stloc: {
 						ILVariable locVar = (ILVariable)operand;
 						if (!locVar.IsParameter)

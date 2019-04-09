@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -134,6 +134,7 @@ namespace ICSharpCode.Decompiler.FlowAnalysis
 			new OpCodeInfo(OpCodes.Endfinally) { CanThrow = false },
 			//new OpCodeInfo(OpCodes.Initblk)    { CanThrow = true }, - no idea whether this might cause trouble for the type system, C# shouldn't use it so I'll disable it
 			//new OpCodeInfo(OpCodes.Jmp)        { CanThrow = true } - We don't support non-local control transfers.
+			new OpCodeInfo(OpCodes.Ldtarg)  { CanThrow = false, IsMoveInstruction = true },
 			new OpCodeInfo(OpCodes.Ldarg)   { CanThrow = false, IsMoveInstruction = true },
 			new OpCodeInfo(OpCodes.Ldarg_0) { CanThrow = false, IsMoveInstruction = true },
 			new OpCodeInfo(OpCodes.Ldarg_1) { CanThrow = false, IsMoveInstruction = true },

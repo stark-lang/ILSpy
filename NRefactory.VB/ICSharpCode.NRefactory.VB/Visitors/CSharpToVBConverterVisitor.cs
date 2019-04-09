@@ -698,7 +698,11 @@ namespace ICSharpCode.NRefactory.VB.Visitors {
 				)
 			);
 		}
-		
+
+		public AstNode VisitLoadTypeArgumentExpression(LoadTypeArgumentExpression loadTypeArgumentExpression, object data) {
+			return EndNode(loadTypeArgumentExpression, new TypeReferenceExpression((AstType)loadTypeArgumentExpression.Type.AcceptVisitor(this, data)));
+		}
+
 		public AstNode VisitStackAllocExpression(CSharp.StackAllocExpression stackAllocExpression, object data)
 		{
 			return EndNode(
