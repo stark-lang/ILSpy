@@ -425,7 +425,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				IntroduceConstantsCore(block);
 		}
 
-		static readonly UTF8String nameSystem = "system";
+		static readonly UTF8String nameSystem = "core";
 		static bool IsMscorlibSystemClass(TypeDef type, string name) {
 			if (type.Namespace != nameSystem)
 				return false;
@@ -640,7 +640,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 						if (IsMscorlibSystemClass(context.CurrentMethod.DeclaringType, "Decimal"))
 							break;
 						var module = context.CurrentModule;
-						var tr = module.CorLibTypes.GetTypeRef("system", "Decimal");
+						var tr = module.CorLibTypes.GetTypeRef("core", "Decimal");
 						var mr = new MemberRefUser(module, name, new FieldSig(new ValueTypeSig(tr)), tr);
 						expr.Code = ILCode.Ldsfld;
 						expr.Operand = mr;

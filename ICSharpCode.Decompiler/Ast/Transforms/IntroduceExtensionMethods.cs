@@ -40,7 +40,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		{
 		}
 
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("core.runtime.compiler");
 		static readonly UTF8String extensionAttributeString = new UTF8String("ExtensionAttribute");
 		public void Run(AstNode compilationUnit)
 		{

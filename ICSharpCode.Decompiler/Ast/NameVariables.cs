@@ -30,21 +30,21 @@ namespace ICSharpCode.Decompiler.Ast {
 	public class NameVariables
 	{
 		static readonly Dictionary<string, string> typeNameToVariableNameDict = new Dictionary<string, string> {
-			{ "system.Bool", "flag" },
-			{ "system.Int8", "b" },
-			{ "system.UInt8", "b" },
-			{ "system.Int16", "num" },
-			{ "system.Int32", "num" },
-			{ "system.Int64", "num" },
-			{ "system.UInt16", "num" },
-			{ "system.UInt32", "num" },
-			{ "system.UInt64", "num" },
-			{ "system.Float32", "num" },
-			{ "system.Float64", "num" },
-			{ "system.Decimal", "num" },
-			{ "system.String", "text" },
-			{ "system.Object", "obj" },
-			{ "system.Rune", "c" }
+			{ "core.Bool", "flag" },
+			{ "core.Int8", "b" },
+			{ "core.UInt8", "b" },
+			{ "core.Int16", "num" },
+			{ "core.Int32", "num" },
+			{ "core.Int64", "num" },
+			{ "core.UInt16", "num" },
+			{ "core.UInt32", "num" },
+			{ "core.UInt64", "num" },
+			{ "core.Float32", "num" },
+			{ "core.Float64", "num" },
+			{ "core.Decimal", "num" },
+			{ "core.String", "text" },
+			{ "core.Object", "obj" },
+			{ "core.Rune", "c" }
 		};
 		
 		public NameVariables(StringBuilder sb) {
@@ -231,7 +231,7 @@ namespace ICSharpCode.Decompiler.Ast {
 				return null;
 			if (!td.IsNested)
 				return null;
-			if (!td.CustomAttributes.IsDefined("system.runtime.compiler.CompilerGeneratedAttribute"))
+			if (!td.CustomAttributes.IsDefined("core.runtime.compiler.CompilerGeneratedAttribute"))
 				return null;
 			var typeName = td.Name.String;
 
@@ -401,7 +401,7 @@ namespace ICSharpCode.Decompiler.Ast {
 			return null;
 		}
 
-		static readonly UTF8String systemString = new UTF8String("system");
+		static readonly UTF8String systemString = new UTF8String("core");
 		static readonly UTF8String nullableString = new UTF8String("Nullable`1");
 		string GetNameByType(TypeSig type)
 		{

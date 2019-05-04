@@ -72,9 +72,9 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 				return td.Name == expName && td.Namespace == expNs;
 			return false;
 		}
-		static readonly UTF8String systemString = new UTF8String("system");
+		static readonly UTF8String systemString = new UTF8String("core");
 		static readonly UTF8String typeString = new UTF8String("Type");
-		static readonly UTF8String systemReflectionString = new UTF8String("system.Reflection");
+		static readonly UTF8String systemReflectionString = new UTF8String("core.Reflection");
 		static readonly UTF8String fieldInfoString = new UTF8String("FieldInfo");
 
 		internal static void ProcessInvocationExpression(InvocationExpression invocationExpression, StringBuilder sb)
@@ -86,7 +86,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			var arguments = invocationExpression.Arguments.ToArray();
 			
 			// Reduce "String.Concat(a, b)" to "a + b"
-			if (methodRef.Name == "Concat" && methodRef.DeclaringType != null && arguments.Length >= 2 && methodRef.DeclaringType.FullName == "system.String")
+			if (methodRef.Name == "Concat" && methodRef.DeclaringType != null && arguments.Length >= 2 && methodRef.DeclaringType.FullName == "core.String")
 			{
 				invocationExpression.Arguments.Clear(); // detach arguments from invocationExpression
 				Expression expr = arguments[0];
@@ -103,7 +103,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 									CheckType(methodRef.DeclaringType, systemReflectionString, fieldInfoString);
 			switch (isSupportedType ? methodRef.Name.String : string.Empty) {
 				case "GetTypeFromHandle":
-					if (arguments.Length == 1 && methodRef.FullName == "system.type system.type::GetTypeFromHandle(system.RuntimeTypeHandle)") {
+					if (arguments.Length == 1 && methodRef.FullName == "core.type system.type::GetTypeFromHandle(system.RuntimeTypeHandle)") {
 						if (typeHandleOnTypeOfPattern.IsMatch(arguments[0])) {
 							invocationExpression.ReplaceWith(((MemberReferenceExpression)arguments[0]).Target
 								.WithAnnotation(invocationExpression.GetAllRecursiveILSpans()).WithAnnotation(builder));
@@ -112,7 +112,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 					}
 					break;
 				case "GetFieldFromHandle":
-					if (arguments.Length == 1 && methodRef.FullName == "system.reflection.FieldInfo system.reflection.FieldInfo::GetFieldFromHandle(system.RuntimeFieldHandle)") {
+					if (arguments.Length == 1 && methodRef.FullName == "core.reflection.FieldInfo system.reflection.FieldInfo::GetFieldFromHandle(system.RuntimeFieldHandle)") {
 						MemberReferenceExpression mre = arguments[0] as MemberReferenceExpression;
 						if (mre != null && mre.MemberName == "FieldHandle" && mre.Target.Annotation<LdTokenAnnotation>() != null) {
 							invocationExpression.ReplaceWith(mre.Target
@@ -120,7 +120,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 							return;
 						}
 					}
-					else if (arguments.Length == 2 && methodRef.FullName == "system.reflection.FieldInfo system.reflection.FieldInfo::GetFieldFromHandle(system.RuntimeFieldHandle,system.RuntimeTypeHandle)") {
+					else if (arguments.Length == 2 && methodRef.FullName == "core.reflection.FieldInfo system.reflection.FieldInfo::GetFieldFromHandle(system.RuntimeFieldHandle,system.RuntimeTypeHandle)") {
 						MemberReferenceExpression mre1 = arguments[0] as MemberReferenceExpression;
 						MemberReferenceExpression mre2 = arguments[1] as MemberReferenceExpression;
 						if (mre1 != null && mre1.MemberName == "FieldHandle" && mre1.Target.Annotation<LdTokenAnnotation>() != null) {

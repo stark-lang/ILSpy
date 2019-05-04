@@ -34,7 +34,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		{
 		}
 
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("core.runtime.compiler");
 		static readonly UTF8String decimalConstantAttributeString = new UTF8String("DecimalConstantAttribute");
 		public override object VisitFieldDeclaration(FieldDeclaration fieldDeclaration, object data)
 		{

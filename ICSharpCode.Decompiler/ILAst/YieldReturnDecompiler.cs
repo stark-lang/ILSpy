@@ -109,7 +109,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 			foreach (var i in type.Interfaces) {
 				if (i.Interface == null)
 					continue;
-				if (i.Interface.Name == "IEnumerator" && i.Interface.Namespace == "system.Collections")
+				if (i.Interface.Name == "IEnumerator" && i.Interface.Namespace == "core.Collections")
 					return true;
 			}
 			return false;
@@ -170,7 +170,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 						return false;
 					if (m.Name != nameGetObjectValue)
 						return false;
-					if (m.DeclaringType.FullName != "system.Runtime.CompilerServices.RuntimeHelpers")
+					if (m.DeclaringType.FullName != "core.Runtime.CompilerServices.RuntimeHelpers")
 						return false;
 				}
 				if (loadedVar != enumVar)
@@ -241,7 +241,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 						(stExpr.Match(ILCode.Ldfld, out ldField, out ldFromObj) ||
 						// VB 11 & 12 calls this method
 						(stExpr.Match(ILCode.Call, out m, out stExpr) && m.Name == nameGetObjectValue &&
-						m.DeclaringType.FullName == "system.Runtime.CompilerServices.RuntimeHelpers") &&
+						m.DeclaringType.FullName == "core.Runtime.CompilerServices.RuntimeHelpers") &&
 						stExpr.Match(ILCode.Ldfld, out ldField, out ldFromObj)) &&
 						ldFromObj.MatchThis()) {
 						found = true;

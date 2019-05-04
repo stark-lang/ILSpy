@@ -148,7 +148,7 @@ namespace ICSharpCode.Decompiler.ILAst
 			if (body.ElementAtOrDefault(pos).Match(ILCode.Call, out methodRef, out methodArg1, out methodArg2) &&
 				methodRef.Name == nameInitializeArray &&
 				methodRef.DeclaringType != null &&
-			    methodRef.DeclaringType.FullName == "system.runtime.compiler.RuntimeHelpers" &&
+			    methodRef.DeclaringType.FullName == "core.runtime.compiler.RuntimeHelpers" &&
 			    methodArg1.Match(ILCode.Ldloc, out v2) &&
 			    array == v2 &&
 			    methodArg2.Match(ILCode.Ldtoken, out fieldRef))
@@ -407,7 +407,7 @@ namespace ICSharpCode.Decompiler.ILAst
 			return false;
 		}
 		static readonly UTF8String nameIEnumerable = new UTF8String("IEnumerable");
-		static readonly UTF8String nameSystemCollections = new UTF8String("system.collections");
+		static readonly UTF8String nameSystemCollections = new UTF8String("core.collections");
 
 		/// <summary>
 		/// Gets whether 'expr' represents a setter in an object initializer.

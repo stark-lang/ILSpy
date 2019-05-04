@@ -35,7 +35,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				var iface = ii.Interface;
 				if (iface == null)
 					continue;
-				if (iface.Name == nameIAsyncStateMachine && iface.Namespace == "system.runtime.compiler")
+				if (iface.Name == nameIAsyncStateMachine && iface.Namespace == "core.runtime.compiler")
 					return true;
 			}
 			return false;
@@ -78,7 +78,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 
 		static readonly UTF8String nameCreate = new UTF8String("Create");
 		static readonly UTF8String nameStart = new UTF8String("Start");
-		static readonly UTF8String nameSystemRuntimeCompilerServices = new UTF8String("system.runtime.compiler");
+		static readonly UTF8String nameSystemRuntimeCompilerServices = new UTF8String("core.runtime.compiler");
 		static readonly UTF8String nameAsyncTaskMethodBuilder1 = new UTF8String("AsyncTaskMethodBuilder`1");
 		static readonly UTF8String nameAsyncTaskMethodBuilder = new UTF8String("AsyncTaskMethodBuilder");
 		static readonly UTF8String nameAsyncVoidMethodBuilder = new UTF8String("AsyncVoidMethodBuilder");
@@ -170,10 +170,10 @@ namespace ICSharpCode.Decompiler.ILAst {
 		protected bool MatchStartCall(ILNode expr, out ILVariable stateMachineVar, out ILVariable builderVar) =>
 			MatchStartCallCore(expr, out stateMachineVar, out builderVar, useLdflda: false);
 
-		static readonly UTF8String stringSystem_Threading_Tasks = new UTF8String("system.threading.tasks");
+		static readonly UTF8String stringSystem_Threading_Tasks = new UTF8String("core.threading.tasks");
 		static readonly UTF8String stringTask = new UTF8String("Task");
 		static readonly UTF8String stringTask_1 = new UTF8String("Task`1");
-		static readonly UTF8String stringSystem = new UTF8String("system");
+		static readonly UTF8String stringSystem = new UTF8String("core");
 		static readonly UTF8String stringVoid = new UTF8String("Void");
 		static bool TryGetAsyncMethodType(ITypeDefOrRef tdr, ITypeDefOrRef builderType, out AsyncMethodType asyncMethodType) {
 			var td = tdr.ResolveTypeDef();
@@ -232,11 +232,11 @@ namespace ICSharpCode.Decompiler.ILAst {
 				return false;
 
 			foreach (var ca in td.CustomAttributes) {
-				if (ca.TypeFullName != "system.runtime.compiler.AsyncMethodBuilderAttribute")
+				if (ca.TypeFullName != "core.runtime.compiler.AsyncMethodBuilderAttribute")
 					continue;
 				if (ca.ConstructorArguments.Count != 1)
 					continue;
-				if ((ca.ConstructorArguments[0].Type as ClassSig)?.TypeDefOrRef.FullName != "system.Type")
+				if ((ca.ConstructorArguments[0].Type as ClassSig)?.TypeDefOrRef.FullName != "core.Type")
 					continue;
 
 				return true;
@@ -349,7 +349,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 						// VB 11 & 12 calls RuntimeHelpers.GetObjectValue(o)
 						if (m.Name != nameGetObjectValue)
 							return false;
-						if (m.DeclaringType.FullName != "system.runtime.compiler.RuntimeHelpers")
+						if (m.DeclaringType.FullName != "core.runtime.compiler.RuntimeHelpers")
 							return false;
 					}
 					else

@@ -62,8 +62,8 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			// First determine all the namespaces that need to be imported:
 			compilationUnit.AcceptVisitor(new FindRequiredImports(this), null);
 
-			importedNamespaces.Add(new NamespaceRef(context.CurrentModule.CorLibTypes.AssemblyRef, "system")); // always import System, even when not necessary
-			importedOrDeclaredNamespaces.Add("system");
+			importedNamespaces.Add(new NamespaceRef(context.CurrentModule.CorLibTypes.AssemblyRef, "core")); // always import System, even when not necessary
+			importedOrDeclaredNamespaces.Add("core");
 			if (context.CalculateILSpans) {
 				Debug.Assert(context.UsingNamespaces.Count == 0);
 				foreach (var nsRef in importedNamespaces)
@@ -159,8 +159,8 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 		sealed class ReverseSortSystemUsingStatementsFirstComparer : IComparer<NamespaceRef> {
 			public static readonly ReverseSortSystemUsingStatementsFirstComparer Instance = new ReverseSortSystemUsingStatementsFirstComparer();
 			public int Compare(NamespaceRef x, NamespaceRef y) {
-				bool sx = x.Namespace == "system" || x.Namespace.StartsWith("system.");
-				bool sy = y.Namespace == "system" || y.Namespace.StartsWith("system.");
+				bool sx = x.Namespace == "core" || x.Namespace.StartsWith("core.");
+				bool sy = y.Namespace == "core" || y.Namespace.StartsWith("core.");
 				if (sx && sy)
 					return StringComparer.OrdinalIgnoreCase.Compare(y.Namespace, x.Namespace);
 				if (sx && !sy)

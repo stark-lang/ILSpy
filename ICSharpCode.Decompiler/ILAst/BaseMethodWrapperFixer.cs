@@ -110,7 +110,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 			if (!okName)
 				return false;
 
-			return method.CustomAttributes.IsDefined("system.runtime.compiler.CompilerGeneratedAttribute");
+			return method.CustomAttributes.IsDefined("core.runtime.compiler.CompilerGeneratedAttribute");
 		}
 	}
 }

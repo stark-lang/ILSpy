@@ -1314,7 +1314,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			return null;
 		}
 
-		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("system.runtime.compiler");
+		static readonly UTF8String systemRuntimeCompilerServicesString = new UTF8String("core.runtime.compiler");
 		static readonly UTF8String compilerGeneratedAttributeString = new UTF8String("CompilerGeneratedAttribute");
 		static readonly UTF8String methodImplAttributeString = new UTF8String("MethodImplAttribute");
 		static readonly KeyValuePair<UTF8String, UTF8String>[] compilerGeneratedAttributeNames = new KeyValuePair<UTF8String, UTF8String>[] {
@@ -1468,7 +1468,7 @@ namespace ICSharpCode.Decompiler.Ast.Transforms {
 			var combineMethod = m.Get<AstNode>("delegateCombine").Single().Parent.Annotation<IMethod>();
 			if (combineMethod == null || combineMethod.Name != (isAddAccessor ? "Combine" : "Remove"))
 				return false;
-			return combineMethod.DeclaringType != null && combineMethod.DeclaringType.FullName == "system.Delegate";
+			return combineMethod.DeclaringType != null && combineMethod.DeclaringType.FullName == "core.Delegate";
 		}
 		
 		EventDeclaration TransformAutomaticEvents(CustomEventDeclaration ev)
