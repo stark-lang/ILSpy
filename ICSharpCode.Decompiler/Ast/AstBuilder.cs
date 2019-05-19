@@ -1961,13 +1961,16 @@ namespace ICSharpCode.Decompiler.Ast {
 				structLayout.Arguments.Add(CreateEnumIdentifierExpression(typeof(LayoutKind), layoutKind.ToString(), GetSystemRuntimeInteropServicesAssemblyRef(typeDef.Module)));
 				var module = GetModule();
 				if (charSet != CharSet.Ansi) {
-					structLayout.AddNamedArgument(module, attrType, null, typeof(CharSet), null, "CharSet", CreateEnumIdentifierExpression(typeof(CharSet), charSet.ToString(), typeDef.Module.CorLibTypes.AssemblyRef));
+					structLayout.AddNamedArgument(module, attrType, null, typeof(CharSet), null, "charset", CreateEnumIdentifierExpression(typeof(CharSet), charSet.ToString(), typeDef.Module.CorLibTypes.AssemblyRef));
 				}
 				if (typeDef.PackingSize != ushort.MaxValue && typeDef.PackingSize > 0) {
-					structLayout.AddNamedArgument(module, attrType, null, typeof(int), null, "Pack", new PrimitiveExpression((int)typeDef.PackingSize));
+					structLayout.AddNamedArgument(module, attrType, null, typeof(int), null, "pack", new PrimitiveExpression((int)typeDef.PackingSize));
+				}
+				if (typeDef.Alignment != ushort.MaxValue && typeDef.Alignment > 0) {
+					structLayout.AddNamedArgument(module, attrType, null, typeof(int), null, "align", new PrimitiveExpression((int)typeDef.Alignment));
 				}
 				if (typeDef.ClassSize != uint.MaxValue && typeDef.ClassSize > 0) {
-					structLayout.AddNamedArgument(module, attrType, null, typeof(int), null, "Size", new PrimitiveExpression((int)typeDef.ClassSize));
+					structLayout.AddNamedArgument(module, attrType, null, typeof(int), null, "size", new PrimitiveExpression((int)typeDef.ClassSize));
 				}
 				attributedNode.Attributes.Add(new AttributeSection(structLayout));
 			}

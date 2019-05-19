@@ -1438,6 +1438,9 @@ namespace ICSharpCode.Decompiler.Disassembler {
 				output.Write(".pack", BoxedTextColor.ILDirective);
 				output.Write(" ", BoxedTextColor.Text);
 				output.WriteLine(string.Format("{0}", type.PackingSize), BoxedTextColor.Number);
+				output.Write(".align", BoxedTextColor.ILDirective);
+				output.Write(" ", BoxedTextColor.Text);
+				output.WriteLine(string.Format("{0}", type.Alignment), BoxedTextColor.Number);
 				output.Write(".size", BoxedTextColor.ILDirective);
 				output.Write(" ", BoxedTextColor.Text);
 				output.WriteLine(string.Format("{0}", type.ClassSize), BoxedTextColor.Number);
