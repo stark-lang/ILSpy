@@ -454,7 +454,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				if (type == null)
 					continue;
 				switch (type.ElementType) {
-				case ElementType.Char:
+				case ElementType.Rune:
 					if (expr.Code == ILCode.Ldc_I4) {
 						var c = (int)expr.Operand;
 						if (c == char.MaxValue && !IsMscorlibSystemClass(context.CurrentMethod.DeclaringType, "Char")) {

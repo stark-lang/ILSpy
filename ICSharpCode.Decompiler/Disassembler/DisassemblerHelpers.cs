@@ -827,18 +827,18 @@ namespace ICSharpCode.Decompiler.Disassembler {
 				case "core.Rune":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Char;
-					return "char";
+					return "rune";
 				case "core.Object":
 					if (corLibTypes != null)
 						typeSig = corLibTypes.Object;
 					return "object";
 				case "core.Int":
 					if (corLibTypes != null)
-						typeSig = corLibTypes.IntPtr;
+						typeSig = corLibTypes.Int;
 					return "native int";
 				case "core.UInt":
 					if (corLibTypes != null)
-						typeSig = corLibTypes.UIntPtr;
+						typeSig = corLibTypes.UInt;
 					return "native unsigned int";
 				case "core.TypedReference":
 					if (corLibTypes != null)

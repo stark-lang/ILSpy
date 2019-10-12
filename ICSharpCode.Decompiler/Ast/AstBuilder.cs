@@ -799,28 +799,32 @@ namespace ICSharpCode.Decompiler.Ast {
 						if ((options & ConvertTypeOptions.DoNotUsePrimitiveTypeNames)
 							!= ConvertTypeOptions.DoNotUsePrimitiveTypeNames) {
 							switch (name) {
-								case "Int8":
-									return new PrimitiveType("sbyte").WithAnnotation(type);
-								case "Int16":
-									return new PrimitiveType("short").WithAnnotation(type);
-								case "Int32":
+								case "Int":
 									return new PrimitiveType("int").WithAnnotation(type);
-								case "Int64":
-									return new PrimitiveType("long").WithAnnotation(type);
-								case "UInt8":
-									return new PrimitiveType("byte").WithAnnotation(type);
-								case "UInt16":
-									return new PrimitiveType("ushort").WithAnnotation(type);
-								case "UInt32":
+								case "UInt":
 									return new PrimitiveType("uint").WithAnnotation(type);
+								case "Int8":
+									return new PrimitiveType("i8").WithAnnotation(type);
+								case "Int16":
+									return new PrimitiveType("i16").WithAnnotation(type);
+								case "Int32":
+									return new PrimitiveType("i32").WithAnnotation(type);
+								case "Int64":
+									return new PrimitiveType("i64").WithAnnotation(type);
+								case "UInt8":
+									return new PrimitiveType("u8").WithAnnotation(type);
+								case "UInt16":
+									return new PrimitiveType("u16").WithAnnotation(type);
+								case "UInt32":
+									return new PrimitiveType("u32").WithAnnotation(type);
 								case "UInt64":
-									return new PrimitiveType("ulong").WithAnnotation(type);
+									return new PrimitiveType("u64").WithAnnotation(type);
 								case "String":
 									return new PrimitiveType("string").WithAnnotation(type);
 								case "Float32":
-									return new PrimitiveType("float").WithAnnotation(type);
+									return new PrimitiveType("f32").WithAnnotation(type);
 								case "Float64":
-									return new PrimitiveType("double").WithAnnotation(type);
+									return new PrimitiveType("f64").WithAnnotation(type);
 								case "Decimal":
 									return new PrimitiveType("decimal").WithAnnotation(type);
 								case "Rune":
@@ -1803,7 +1807,7 @@ namespace ICSharpCode.Decompiler.Ast {
 		{
 			switch (type.GetElementType()) {
 			case ElementType.Boolean: return TypeCode.Boolean;
-			case ElementType.Char: return TypeCode.Char;
+			case ElementType.Rune: return TypeCode.Char;
 			case ElementType.I1: return TypeCode.SByte;
 			case ElementType.U1: return TypeCode.Byte;
 			case ElementType.I2: return TypeCode.Int16;

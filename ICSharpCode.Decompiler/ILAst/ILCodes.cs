@@ -472,7 +472,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					case ILCode.Ble_Un_S:  code = ILCode.Ble_Un; break;
 					case ILCode.Blt_Un_S:  code = ILCode.Blt_Un; break;
 					case ILCode.Leave_S:   code = ILCode.Leave; break;
-					case ILCode.Ldind_I:   code = ILCode.Ldobj; operand = method.Module.CorLibTypes.IntPtr.TypeDefOrRef; break;
+					case ILCode.Ldind_I:   code = ILCode.Ldobj; operand = method.Module.CorLibTypes.Int.TypeDefOrRef; break;
 					case ILCode.Ldind_I1:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.SByte.TypeDefOrRef; break;
 					case ILCode.Ldind_I2:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.Int16.TypeDefOrRef; break;
 					case ILCode.Ldind_I4:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.Int32.TypeDefOrRef; break;
@@ -482,7 +482,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					case ILCode.Ldind_U4:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.UInt32.TypeDefOrRef; break;
 					case ILCode.Ldind_R4:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.Single.TypeDefOrRef; break;
 					case ILCode.Ldind_R8:  code = ILCode.Ldobj; operand = method.Module.CorLibTypes.Double.TypeDefOrRef; break;
-					case ILCode.Stind_I:   code = ILCode.Stobj; operand = method.Module.CorLibTypes.IntPtr.TypeDefOrRef; break;
+					case ILCode.Stind_I:   code = ILCode.Stobj; operand = method.Module.CorLibTypes.Int.TypeDefOrRef; break;
 					case ILCode.Stind_I1:  code = ILCode.Stobj; operand = method.Module.CorLibTypes.Byte.TypeDefOrRef; break;
 					case ILCode.Stind_I2:  code = ILCode.Stobj; operand = method.Module.CorLibTypes.Int16.TypeDefOrRef; break;
 					case ILCode.Stind_I4:  code = ILCode.Stobj; operand = method.Module.CorLibTypes.Int32.TypeDefOrRef; break;

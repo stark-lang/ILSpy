@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2011 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -510,7 +510,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					if (expectedType is PtrSig)
 						return expectedType;
 					else
-						return typeSystem.IntPtr;
+						return typeSystem.Int;
 				case ILCode.Sizeof:
 					return typeSystem.Int32;
 				case ILCode.PostIncrement:
@@ -640,7 +640,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					return typeSystem.String;
 				case ILCode.Ldftn:
 				case ILCode.Ldvirtftn:
-					return typeSystem.IntPtr;
+					return typeSystem.Int;
 				case ILCode.Ldc_I4:
 					if (expectedType.GetElementType() == ElementType.Boolean && ((int)expr.Operand == 0 || (int)expr.Operand == 1))
 						return typeSystem.Boolean;
@@ -677,9 +677,9 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ILCode.Newarr:
 					if (forceInferChildren) {
 						var lengthType = InferTypeForExpression(expr.Arguments.Single(), null);
-						if (new SigComparer().Equals(lengthType, typeSystem.IntPtr)) {
+						if (new SigComparer().Equals(lengthType, typeSystem.Int)) {
 							lengthType = typeSystem.Int64;
-						} else if (new SigComparer().Equals(lengthType, typeSystem.UIntPtr)) {
+						} else if (new SigComparer().Equals(lengthType, typeSystem.UInt)) {
 							lengthType = typeSystem.UInt64;
 						} else if (!new SigComparer().Equals(lengthType, typeSystem.UInt32) && !new SigComparer().Equals(lengthType, typeSystem.Int64) && !new SigComparer().Equals(lengthType, typeSystem.UInt64)) {
 							lengthType = typeSystem.Int32;
@@ -698,7 +698,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					}
 					return operandSig;
 				case ILCode.Ldlen:
-					return typeSystem.Int32;
+					return typeSystem.Int;
 				case ILCode.Ldelem_U1:
 				case ILCode.Ldelem_U2:
 				case ILCode.Ldelem_U4:
@@ -713,20 +713,20 @@ namespace ICSharpCode.Decompiler.ILAst {
 					{
 						SZArraySig arrayType = InferTypeForExpression(expr.Arguments[0], null) as SZArraySig;
 						if (forceInferChildren) {
-							InferTypeForExpression(expr.Arguments[1], typeSystem.Int32);
+							InferTypeForExpression(expr.Arguments[1], typeSystem.Int);
 						}
 						return arrayType != null ? arrayType.Next : null;
 					}
 				case ILCode.Ldelem:
 					if (forceInferChildren) {
-						InferTypeForExpression(expr.Arguments[1], typeSystem.Int32);
+						InferTypeForExpression(expr.Arguments[1], typeSystem.Int);
 					}
 					return ((ITypeDefOrRef)expr.Operand).ToTypeSig();
 				case ILCode.Ldelema:
 					{
 						SZArraySig arrayType = InferTypeForExpression(expr.Arguments[0], null) as SZArraySig;
 						if (forceInferChildren)
-							InferTypeForExpression(expr.Arguments[1], typeSystem.Int32);
+							InferTypeForExpression(expr.Arguments[1], typeSystem.Int);
 						return arrayType != null ? new ByRefSig(arrayType.Next) : null;
 					}
 				case ILCode.Stelem_I:
@@ -741,7 +741,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					{
 						SZArraySig arrayType = InferTypeForExpression(expr.Arguments[0], null) as SZArraySig;
 						if (forceInferChildren) {
-							InferTypeForExpression(expr.Arguments[1], typeSystem.Int32);
+							InferTypeForExpression(expr.Arguments[1], typeSystem.Int);
 							if (arrayType != null) {
 								InferTypeForExpression(expr.Arguments[2], arrayType.Next);
 							}
@@ -785,11 +785,11 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ILCode.Conv_I:
 				case ILCode.Conv_Ovf_I:
 				case ILCode.Conv_Ovf_I_Un:
-					return HandleConversion(NativeInt, true, expr.Arguments[0], expectedType, typeSystem.IntPtr);
+					return HandleConversion(NativeInt, true, expr.Arguments[0], expectedType, typeSystem.Int);
 				case ILCode.Conv_U:
 				case ILCode.Conv_Ovf_U:
 				case ILCode.Conv_Ovf_U_Un:
-					return HandleConversion(NativeInt, false, expr.Arguments[0], expectedType, typeSystem.UIntPtr);
+					return HandleConversion(NativeInt, false, expr.Arguments[0], expectedType, typeSystem.UInt);
 				case ILCode.Conv_R4:
 					if (forceInferChildren) {
 						InferTypeForExpression(expr.Arguments[0], typeSystem.Single);
@@ -1056,7 +1056,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				TypeSig rightPreferred = InferTypeForExpression(right, null);
 				// subtracting two pointers is not a pointer
 				if (rightPreferred is PtrSig)
-					return typeSystem.IntPtr;
+					return typeSystem.Int;
 				return leftPreferred;
 			}
 			if (IsEnum(leftPreferred)) {
@@ -1145,7 +1145,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ElementType.I1:
 				case ElementType.U1:
 					return 8;
-				case ElementType.Char:
+				case ElementType.Rune:
 				case ElementType.I2:
 				case ElementType.U2:
 					return 16;
@@ -1194,7 +1194,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 				case ElementType.I:
 					return true;
 				case ElementType.U1:
-				case ElementType.Char:
+				case ElementType.Rune:
 				case ElementType.U2:
 				case ElementType.U4:
 				case ElementType.U8:
@@ -1215,7 +1215,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 					return short.MinValue <= num && num <= short.MaxValue;
 				case ElementType.U1:
 					return byte.MinValue <= num && num <= byte.MaxValue;
-				case ElementType.Char:
+				case ElementType.Rune:
 					return char.MinValue <= num && num <= char.MaxValue;
 				case ElementType.U2:
 					return ushort.MinValue <= num && num <= ushort.MaxValue;
@@ -1250,7 +1250,7 @@ namespace ICSharpCode.Decompiler.ILAst {
 			switch (type.RemovePinnedAndModifiers().GetElementType()) {
 				case ElementType.Boolean:
 					return TypeCode.Boolean;
-				case ElementType.Char:
+				case ElementType.Rune:
 					return TypeCode.Char;
 				case ElementType.I1:
 					return TypeCode.SByte;
